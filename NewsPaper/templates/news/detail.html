@@ -1,0 +1,15 @@
+{% extends 'news/default.html' %}
+
+
+
+{% block content %}
+
+
+        <h2>Заголовок: {{ news.title }}</h2>
+        <p>Содержание новости: {{ news.content }}</p>
+        <p>Дата публикации: {{ news.pub_date|date:'d M, Yг' }}</p>
+
+
+        <a href="{% url 'news-list' %}"><p>назад...</p></a>
+
+{% endblock %}
