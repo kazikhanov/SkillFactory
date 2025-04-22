@@ -1,5 +1,5 @@
 {% extends 'news/default.html' %}
-
+{% load custom_filters %}
 
 
 
@@ -8,7 +8,7 @@
     {% if news %}
         {% for new in news %}
             <br> <hr>
-            <p>Заголовок: {{ new.title }}</p>
+            <p>Заголовок: {{ new.title|censor }}</p>
             <p>Дата публикации: {{ new.pub_date|date:'d M, Yг,' }}</p>
             <p>Содержание новости: {{ new.content|truncatechars:20 }}</p>
 
