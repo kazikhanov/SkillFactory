@@ -1,7 +1,7 @@
 {% extends 'news/default.html' %}
 {% load custom_filters %}
 
-
+<a href="{% url 'news-search' %}" class="nav-link">Поиск новостей</a>
 
 {% block content %}
     <H4>Количевство новостей: {{ lenght }}</H4>

@@ -1,23 +1,42 @@
-from django_filters import FilterSet
-from .models import Product
+import django_filters
+from django import forms
+from .models import News
+from django.contrib.auth.models import User
 
-# Создаем свой набор фильтров для модели Product.
-# FilterSet, который мы наследуем,
-# должен чем-то напомнить знакомые вам Django дженерики.
-class ProductFilter(FilterSet):
-   class Meta:
-       # В Meta классе мы должны указать Django модель,
-       # в которой будем фильтровать записи.
-       model = Product
-       # В fields мы описываем по каким полям модели
-       # будет производиться фильтрация.
-       fields = {
-           # поиск по названию
-           'name': ['icontains'],
-           # количество товаров должно быть больше или равно
-           'quantity': ['gt'],
-           'price': [
-               'lt',  # цена должна быть меньше или равна указанной
-               'gt',  # цена должна быть больше или равна указанной
-           ],
-       }
+
+class NewsSearchFilter(django_filters.FilterSet):
+    # Поиск по названию (регистронезависимый)
+    title = django_filters.CharFilter(
+        lookup_expr='icontains',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Поиск по названию',
+            'class': 'form-control'
+        }),
+        label='Название'
+    )
+
+    # Поиск по имени автора
+    author = django_filters.CharFilter(
+        field_name='author__username',
+        lookup_expr='icontains',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Поиск по автору',
+            'class': 'form-control'
+        }),
+        label='Имя автора'
+    )
+
+    # Фильтр по дате (новости после указанной даты)
+    pub_date = django_filters.DateFilter(
+        field_name='pub_date',
+        lookup_expr='gte',
+        widget=forms.DateInput(attrs={
+            'type': 'date',
+            'class': 'form-control'
+        }),
+        label='Опубликовано после'
+    )
+
+    class Meta:
+        model = News
+        fields = []

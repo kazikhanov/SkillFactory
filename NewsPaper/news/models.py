@@ -13,17 +13,27 @@ class AuthorProfile(models.Model):
 
 
 class News(models.Model):
+    NEWS = 'news'
+    ARTICLE = 'article'
+    TYPE_CHOICES = [
+        (NEWS, 'Новость'),
+        (ARTICLE, 'Статья'),
+    ]
+
     title = models.CharField(max_length=200)
     content = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     tags = models.ManyToManyField('Tag', blank=True)
-    is_publisher = models.BooleanField(default=True)
+    is_published = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('news-detail', kwargs={'pk': self.pk})
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
