@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if not user.groups.filter(name='authors').exists() %}
+    <a href="{% url 'become_author' %}" class="btn btn-primary">Стать автором</a>
+{% endif %}
+</body>
+</html>

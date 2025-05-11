@@ -1,0 +1,15 @@
+{% extends 'news/default.html' %}
+{% load custom_filters %}
+
+
+{% block content %}
+
+
+        <h2>Заголовок: {{ news.title|censor }}</h2>
+        <p>Содержание новости: {{ news.content|censor }}</p>
+        <p>Дата публикации: {{ news.pub_date|date:'d M, Yг' }}</p>
+
+
+        <a href="{% url 'news-list' %}"><p>назад...</p></a>
+
+{% endblock %}

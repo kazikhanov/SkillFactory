@@ -1,0 +1,21 @@
+{% extends 'news/default.html' %}
+{% load custom_filters %}
+
+<a href="{% url 'news-search' %}" class="nav-link">Поиск новостей</a>
+
+{% block content %}
+    <H4>Количевство новостей: {{ lenght }}</H4>
+    {% if news %}
+        {% for new in news %}
+            <br> <hr>
+            <p>Заголовок: {{ new.title|censor }}</p>
+            <p>Дата публикации: {{ new.pub_date|date:'d M, Yг,' }}</p>
+            <p>Содержание новости: {{ new.content|truncatechars:20 }}</p>
+
+            <a href="{% url 'news-detail' new.pk %}"><p>читать...</p></a>
+        {% endfor %}
+    {% else %}
+        <h1>Новостей нет!</h1>
+    {% endif %}
+
+{% endblock %}

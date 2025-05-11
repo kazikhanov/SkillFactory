@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Стать автором</title>
+</head>
+<body>
+{% if user in authors_group %}
+    <p>Вы автор!</p>
+{% else %}
+    <a href="{% url 'become_author' %}">Стать автором</a>
+{% endif %}
+</body>
+</html>
