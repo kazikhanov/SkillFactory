@@ -16,3 +16,7 @@ class ArticleForm(NewsForm):
         if commit:
             instance.save()
         return instance
+
+
+class SubscribeForm(forms.Form):
+    pass  # Простая форма для кнопки

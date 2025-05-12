@@ -4,8 +4,9 @@ from .views import (
     NewsCreateView, NewsUpdateView, NewsDeleteView,
     ArticleCreateView, ArticleUpdateView, ArticleDeleteView
 )
+from .views import subscribe, unsubscribe
 from .views import become_author
-from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('', views.home),
@@ -24,4 +25,7 @@ urlpatterns = [
     path('become-author/', become_author, name='become_author'),
     # path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     # path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    path('category/<int:category_id>/subscribe/', subscribe, name='subscribe'),
+    path('category/<int:category_id>/unsubscribe/', unsubscribe, name='unsubscribe'),
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import News
+from .models import News, Category
 from datetime import datetime
 from pprint import pprint
 from .filters import NewsSearchFilter
@@ -143,3 +143,16 @@ def become_author(request):
     authors_group = Group.objects.get_or_create(name='authors')[0]
     request.user.groups.add(authors_group)
     return redirect('home')
+
+
+@login_required
+def subscribe(request, category_id):
+    category = Category.objects.get(id=category_id)
+    category.subscribers.add(request.user)
+    return redirect('category_news', category_id=category_id)  # Обновляем имя роута
+
+@login_required
+def unsubscribe(request, category_id):
+    category = Category.objects.get(id=category_id)
+    category.subscribers.remove(request.user)
+    return redirect('category_news', category_id=category_id)  # Обновляем имя роута

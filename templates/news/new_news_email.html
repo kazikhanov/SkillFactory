@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Здравствуйте, {{ user.username }}!</h2>
+    <p>В категории "{{ news.category.name }}" появилась новость:</p>
+    <h3>{{ news.title }}</h3>
+    <p>{{ news.text|truncatechars:100 }}</p>
+    <a href="http://{{ domain }}{% url 'news_detail' news.id %}">Читать полностью</a>
+    <p>Хорошего дня!</p>
+</body>
+</html>
